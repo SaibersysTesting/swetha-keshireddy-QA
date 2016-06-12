@@ -1,0 +1,39 @@
+package batch3;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
+
+public class DropDownMenuEx {
+
+	public static void main(String[] args) throws InterruptedException
+	{
+		WebDriver r=new FirefoxDriver();
+		
+		r.get("http://www.newtours.demoaut.com/");
+		
+		Thread.sleep(100);
+		
+		r.findElement(By.name("userName")).sendKeys("mahesh");
+		
+		r.findElement(By.name("password")).sendKeys("mahesh");
+		
+		r.findElement(By.name("login")).click();
+		
+		Select Dropdown=new Select(r.findElement(By.name("fromPort")));
+		
+		Dropdown.selectByValue("Sydney");
+		
+		Thread.sleep(4000);
+				
+		Dropdown.selectByValue("New York");
+		
+		Thread.sleep(4000);
+		
+		Dropdown.selectByValue("San Francisco");
+		
+		
+	}
+
+}

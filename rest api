@@ -1,0 +1,16 @@
+Import java.util.list;
+@path(“/messages”)
+Public class MessageResource{
+MessageService messageservice=new MessageService();
+@GET
+@produces(MediaType.Application_XML)
+Public List<Message>get Message(){
+Return Messageservice.getAllMessage();
+}
+@GET
+@Path(“/messageid”)
+@produce(MediaType.TEXT_PLAIN)
+Public Message getMessage(@path(“messageid”)long id){
+return “MessageService.getMessage(id)”;
+}
+}

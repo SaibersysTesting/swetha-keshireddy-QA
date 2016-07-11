@@ -1,0 +1,13 @@
+Import javax.ws.rs.GET;
+Import javax.ws.rs.path;
+Import javax.ws.rs.produces;
+Import javax.ws.rs.core.MediaType;
+@path(“/book”)
+Public class Book{
+@GET
+@produces(MediaType.TexT_XML)
+Public string sayHello(){
+String response=null;
+return response;
+}
+

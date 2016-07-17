@@ -1,0 +1,115 @@
+var fs = require('fs');
+ var os = require('os');
+ var url = require('url');
+ var request = require('request');
+ var http = require('http');
+ var path = require('path');
+ var AdmZip = require('adm-zip');
+ var optimist = require('optimist');
+ var childProcess = require('child_process');
+ 
+ 
+ var SELENIUM_DIR = path.resolve(__dirname, '../selenium');
+ 
+ var versions = require('../config.json').webdriverVersions;
+ 
+ 
+ var shortVersion = function(version) {
+   return version.slice(0, version.lastIndexOf('.'));
+ }
+ 
+ var seleniumPrefix = 'selenium-server-standalone-',
+     seleniumVersion = versions.selenium,
+     chromePrefix = 'chromedriver_',
+     chromeVersion = versions.chromedriver,
+    iePrefix = 'IEDriverServer_',
+     ie32 = 'Win32_',
+     ie64 = 'x64_',
+     ieVersion = versions.iedriver;
+ 
+ var binaries = {
+   standalone: {
+     name: 'selenium standalone',
+     isDefault: true,
+     osType: 'ANY',
+     prefix: 'selenium-server-standalone-',
+     defaultVersion: versions.selenium,
+    version: versions.selenium,
+    getVersion: function() {
+       return this.version;
+     },
+    suffix: function() {
+      return '.jar';
+    },
+    filename: function() {
+      return this.prefix + this.getVersion() + this.suffix();
+    },
+     cdn: 'https://selenium-release.storage.googleapis.com/',
+    url: function() {
+       return this.cdn + shortVersion(this.getVersion()) + '/' +
+          this.prefix + this.getVersion() + this.suffix();
+    }
+  },
+ chrome: {
+    name: 'chromedriver',
+    isDefault: true,
+    osType: 'ANY',
+     prefix: 'chromedriver_',
+    defaultVersion: versions.chromedriver,
+    version: versions.chromedriver,
+    getVersion: function() {
+      return this.version;
+    },
+    suffix: function() {
+      if (os.type() == 'Darwin') {
+       return 'mac32.zip';
+      } else if (os.type() == 'Linux') {
+       if (os.arch() == 'x64') {
+          return 'linux64.zip';
+        } else {
+          return 'linux32.zip';
+       }
+      } else if (os.type() == 'Windows_NT') {
+         return 'win32.zip';
+     }
+    },
+    filename: function() {
+      return this.prefix + this.getVersion() + this.suffix();
+   },
+    cdn: 'https://chromedriver.storage.googleapis.com/',
+    url: function() {
+      return this.cdn + this.getVersion() + '/' + this.prefix + this.suffix();
+    }
+  },
+  ie: {
+    name: 'IEDriver',
+    isDefault: false,
+    osType: 'Windows_NT',
+    prefix: 'IEDriverServer',
+    selectIe32: false,
+    defaultVersion: versions.iedriver,
+    version: versions.iedriver,
+    getVersion: function() {
+      if (os.type() == 'Windows_NT') {
+       if (this.selectIe32 || os.arch() != 'x64') {
+         return '_Win32_' + this.version;
+       } else {
+         return '_x64_' + this.version;
+        }
+      }
+       return '';
+    },
+     suffix: function() {
+       return '.zip';
+    },
+    filename: function() {
+      return this.prefix + this.getVersion() + this.suffix();
+   },
+    cdn: 'https://selenium-release.storage.googleapis.com/',  url: function() {
+  return this.cdn + shortVersion(this.version) + '/' +
+  this.prefix + this.getVersion() + this.suffix();
+ }
+ }
+ };
+ 
+

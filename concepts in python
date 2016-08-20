@@ -1,0 +1,89 @@
+#!/usr/bin/python
+#
+
+import random
+i = random.randrange(10,50)
+print 'Your number is', i
+if i < 20:
+    print "That is less than 20."
+    if i % 3 == 0:
+        print "It is divisible by 3."
+elif i == 20:
+    print "That is exactly twenty.  How nice for you."
+else:
+    if i % 2 == 1:
+        print "That is an odd number."
+    else:
+        print "That is twice", i / 2, '.'
+    print "Wow! That's more than 20!"
+
+
+
+#!/usr/bin/python
+
+# Simple while loop
+a = 0
+while a < 15:
+    print a,            
+    if a == 10:
+        print "made it to ten!!"
+    a = a + 1
+#!/usr/bin/python
+for x in ['Bill', 'Alice', 'Joe', 'Sue' ]:
+    print x, 'likes jelly beans.'
+    print range(5, 10)
+    for y in range(2, 10):
+    print y,
+    print
+ for y in range(2, 10, 2):
+print y,
+print
+for y in range(20, 10, -1):
+print y,
+print
+#!/usr/bin/python
+for x in ['Bill', 'Alice', 'Joe', 'Sue' ]:
+print x, 'likes jelly beans.'
+print range(5, 10)
+for y in range(2, 10):
+print y,
+print
+for y in range(2, 10, 2):
+    print y,
+    print
+for y in range(20, 10, -1):
+    print y,
+   print
+#!/usr/bin/python
+
+# Python exception handling.
+
+
+import random
+i = random.randrange(0, 8)
+j = random.randrange(-1, 6)
+print i, j
+some = [3, 10, 0, 8, 18];
+try:
+    den = some[j] / i
+    print "A:", den
+    frac = (i + j) / den
+    print "B:", frac
+    if frac < 2:
+        k = 3
+    else:
+        k = 'mike'
+    print "C:", k
+    print "D:", some[k]
+except ZeroDivisionError:
+    print "\nDivision by zero."
+except TypeError, detail:
+    print "\nSome type mismatch:", detail
+except IndexError, detail:
+    print "\nSome value is out of range:", detail
+except:
+    print "\nSomething else went wrong."
+else:
+    print "\nThat's odd, nothing went wrong."
+    
+    

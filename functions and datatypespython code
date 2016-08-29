@@ -1,0 +1,178 @@
+#!/usr/bin/python
+def prhello():
+    "Print hello"
+    print "Hello, World!"
+prhello()
+def prlines(str, num):
+    "Print num lines consisting of str, repeating str once more on each line."
+    for n in range(0,num):
+        print str * (n + 1)
+
+prlines('z', 5)
+print
+prlines('fred ', 4)
+
+
+#!/usr/bin/python
+#def dink(base, middles = [ 'red', 'blue' ], end = '.'):
+    'Silly sentence generator.'
+    for m in middles:
+        print base + m + end
+
+dink('The paint is ')
+print
+dink('The walls are ', ['painted', 'cracked', 'ugly'], ' like mine.')
+print
+dink('My car is ', end = ' and broken.')
+print
+dink('', end = ' with chickens.',
+     middles = ['Eating', 'Dancing', 'Watching TV'])
+     
+     
+     #!/usr/bin/python
+
+
+snoggle = 17
+def wongle(n):
+    snoggle = n
+
+print 'A:', snoggle,
+wongle(235)
+print snoggle
+
+
+def wangle(n):
+    global snoggle
+    snoggle = n
+
+print 'B:', snoggle,
+wangle(235)
+print snoggle
+
+
+def snapple(n):
+    n = 55
+
+print 'C:', snoggle,
+wangle(snoggle)
+print snoggle
+
+
+def snarffle(z):
+    z.append(22)
+
+toggle = [ 'a', 'b', 'c' ];
+print 'D:', toggle,
+snarffle(toggle)
+print toggle
+
+
+def snarggle(z):
+    z = [ 4, 5 ]
+
+print 'F:', toggle,
+snarggle(toggle)
+print toggle
+#!/usr/bin/python
+
+
+import sys
+
+
+try:
+    fred = [ 4, 5, 11, 43 ]
+    print 'fred =', fred
+    del fred[2]
+    print 'fred =', fred
+    del fred
+    print 'fred =', fred
+    print "Doesn't get here!"
+except NameError, x:
+    print "*** Name", x, "undefined ***"
+
+fred = 'Nimrod'
+print 'fred =', fred
+
+#!/usr/bin/python
+
+
+a = 5, 9, 'frank', 33
+b = ('this', 'that', 'the other')
+print "A:", a, b
+
+
+c = a + b
+print "B:", c
+print "C:", a[2], c[3:]
+
+
+w, x, y = b
+print "D:", w, x, y
+try:
+    print "E", len(c)
+    (p, q, s, f) = c
+    print "F:", p, q, s, f
+except ValueError, descr:
+    print "*** That won't work:", descr, "***"
+(p, q, s, f) = c[:4]
+print "G:", p, q, s, f
+
+
+mrbig = (5, 17, 4, ('mac', 'alex', 'sally'), 888, b)
+print "H:", mrbig
+
+
+mt = ()
+singleton = (5,)
+print "I:", mt, singleton
+
+try:
+    fred = 5, 9, 22
+    fred[1] = 3
+    print "Won't see this."
+except TypeError, descr:
+    print "*** That won't work:", descr, "***"
+
+
+fred = (5, 9, [3, 4, 7])
+print "J:", fred
+fred[2][1] = 'cow'
+print "K:", fred
+
+
+#!/usr/bin/python
+
+
+
+fred = { 'mike': 456, 'bill': 399, 'sarah': 521 }
+
+
+try:
+    print fred
+    print fred['bill']
+    print fred['nora']
+    print "Won't see this!"
+except KeyError, rest:
+    print "Lookup failed:", rest
+print
+
+
+fred['bill'] = 'Sopwith Camel'
+fred['wilma'] = 2233
+del fred['mike']
+print fred
+print
+
+
+print fred.keys()
+for k in fred.keys():
+    print k, "=>", fred[k]
+print
+
+
+for t in [ 'zingo', 'sarah', 'bill', 'wilma' ]:
+    print t,
+    if fred.has_key(t):
+        print '=>', fred[t]
+    else:
+        print 'is not present.'

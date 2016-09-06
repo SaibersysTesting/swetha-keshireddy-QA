@@ -1,0 +1,104 @@
+#!/usr/bin/python
+
+
+iddict = { }
+infile = '/etc/passwd'
+if len(argv) > 1:
+    infile = argv[1]
+fin = open(infile, 'r')
+for line in fin.readlines():
+    line = lstrip(line)
+    if line == '' or line[0] == '#':
+      parts = split(line, ':')
+    userid = strip(parts[0])
+    name = strip(parts[4])
+     compos = find(name, ',')
+    if compos != -1:
+        name = name[0:compos]
+    if name == '' or name == userid:
+        name = '[ none ]'
+    iddict[userid] = name
+ids = iddict.keys()
+ids.sort()
+for userid in ids:
+    human = iddict[userid]
+ if len(userid) < 12:
+        userid = userid + ' ' * (12 - len(userid))
+ print userid + human
+ 
+ 
+ 
+ 
+ 
+ 
+def eval(x, poly):
+    '''Evaluate at x the polynomial with coefficients given in poly.
+    The value p(x) is returned.'''
+
+    sum = 0
+    while 1:
+        sum = sum + poly[0]     # Add the next coef.
+        poly = poly[1:]         # Done with that one.
+        if not poly: break      # If no more, done entirely.
+        sum = sum * x           # Mult by x (each coef gets x right num times)
+
+    return sum
+
+def read(prompt = '', file = sys.stdin):
+    '''Read a line of integers and return the list of integers.'''
+
+    if prompt: print prompt,
+    line = file.readline()
+    if not line: 
+    line = line[:-1]
+    if line == 'quit':
+    retval = [ ];
+    for str in string.split(line):
+        retval.append(int(str))
+
+    return retval
+
+def srep(p):
+    '''Print the coefficient list as a polynomial.'''
+
+   
+        while 1:
+            try:
+                poly = polynomial.read('Enter a polynomial coefficients: ')
+            except:
+                print 'Conversion failed.  Please try again.'
+            else:
+                break
+        while 1:
+            resp = raw_input('Enter x value or blank line: ')
+            if resp == 'quit': raise EOFError
+            if not resp: break
+            try:
+                x = int(resp)
+            except ValueError:
+                print "That doesn't look like an integer.  Please try again."
+            else:
+                print 'p(x) =', polynomial.srep(poly)
+                print 'p(' + str(x) + ') =', polynomial.eval(x, poly)
+
+except (EOFError, KeyboardInterrupt):
+   
+    print
+    
+    
+  
+import sys, os, glob
+
+print "sys.argv:", sys.argv
+print "os.environ:"
+for v in os.environ.keys():
+    print "    %-15s => %s" % (v, os.environ[v])
+print "sys.platform:", sys.platform
+print "os.getcwd:", os.getcwd()
+print "os.listdir('.'):", os.listdir('.')
+print "glob.glob('*.py'):", glob.glob('*.py')
+print "sys:", dir(sys)
+print "os:", dir(os)
+print
+
+os.system('ls -l')

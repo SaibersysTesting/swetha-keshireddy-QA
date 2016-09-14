@@ -1,0 +1,155 @@
+package TestNgPackage;
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+
+public class TestCases 
+{
+	WebDriver dr=new FirefoxDriver();
+	
+	@BeforeMethod
+	public void MainPage()
+	{
+		dr.get("http://www.google.com/");
+	}
+	@Test(priority=1)
+	public void DropDownMenu() throws InterruptedException
+	{
+		Thread.sleep(2000);
+		dr.get("http://www.newtours.demoaut.com/");
+		
+		Thread.sleep(100);
+		
+		dr.findElement(By.name("userName")).sendKeys("mahesh");
+		
+		dr.findElement(By.name("password")).sendKeys("mahesh");
+		
+		dr.findElement(By.name("login")).click();
+		
+		Select Dropdown=new Select(dr.findElement(By.name("fromPort")));
+		
+		Dropdown.selectByValue("Sydney");
+		
+		Thread.sleep(4000);
+				
+		Dropdown.selectByValue("New York");
+		
+		Thread.sleep(4000);
+		
+		Dropdown.selectByValue("San Francisco");
+	}
+	@Test(priority=2)
+	public void DuplicateObjects() throws InterruptedException
+	{
+		dr.get("http://www.google.com/");
+		Thread.sleep(1500);
+		dr.get("http://www.infibeam.com/");
+		dr.findElement(By.linkText("LOGIN / REGISTER")).click();
+		dr.findElement(By.id("new-account-btn")).click();
+		
+		List<WebElement> e=dr.findElements(By.xpath(".//*[@id='password']"));
+		
+		int noofElements=e.size();
+		System.out.println(noofElements);
+		
+		Thread.sleep(2000);
+		e.get(0).sendKeys("mahesh");
+		
+		Thread.sleep(2000);
+		e.get(1).sendKeys("Raju");
+	}
+	@Test(priority=3)
+	public void HandleMouseHover() throws InterruptedException
+	{
+		dr.get("http://store.demoqa.com/");
+		 
+		WebElement e=dr.findElement(By.linkText("Product Category"));
+		
+		System.out.println(e);
+		
+		Actions a=new Actions(dr);
+		a.moveToElement(e).build().perform();
+		Thread.sleep(1000);
+		dr.findElement(By.linkText("iPads")).click();
+	}
+	@Test(priority=4)
+	public void ImageLinkExample() throws InterruptedException
+	{
+		dr.get("http://www.google.com/");
+		
+		String imageTitle=dr.findElement(By.id("hplogo")).getAttribute("Title");
+		
+		System.out.println(imageTitle);
+		
+		 Thread.sleep(3000);
+		
+		dr.get("http://www.seleniumhq.org/");
+		dr.findElement(By.xpath(".//*[@id='header']/h1/a")).click();
+		
+		Thread.sleep(2000);
+		
+		dr.get("http://www.newtours.demoaut.com/");
+		
+		dr.findElement(By.name("login")).click();
+	}
+	@Test(priority=5)
+	public void RadioButtonEx() throws InterruptedException
+	{
+		dr.get("http://www.newtours.demoaut.com/");
+		
+		Thread.sleep(100);
+		
+		dr.findElement(By.name("userName")).sendKeys("mahesh");
+		
+		dr.findElement(By.name("password")).sendKeys("mahesh");
+		
+		dr.findElement(By.name("login")).click();
+		
+				
+		dr.findElement(By.xpath("html/body/div[1]/table/tbody/tr/td[2]/table/tbody/tr[4]/td/table/tbody/tr/td[2]/table/tbody/tr[5]/td/form/table/tbody/tr[2]/td[2]/b/font/input[1]")).click();
+		
+		boolean t=dr.findElement(By.xpath("html/body/div[1]/table/tbody/tr/td[2]/table/tbody/tr[4]/td/table/tbody/tr/td[2]/table/tbody/tr[5]/td/form/table/tbody/tr[2]/td[2]/b/font/input[1]")).isSelected();
+		
+		System.out.println("First radio button is checked "+t);
+		
+		dr.findElement(By.xpath("html/body/div[1]/table/tbody/tr/td[2]/table/tbody/tr[4]/td/table/tbody/tr/td[2]/table/tbody/tr[5]/td/form/table/tbody/tr[2]/td[2]/b/font/input[2]")).click();
+		
+		boolean f=dr.findElement(By.xpath("html/body/div[1]/table/tbody/tr/td[2]/table/tbody/tr[4]/td/table/tbody/tr/td[2]/table/tbody/tr[5]/td/form/table/tbody/tr[2]/td[2]/b/font/input[2]")).isSelected();
+		
+		System.out.println("Second radio button is checked "+f);
+		
+		Thread.sleep(1000);
+		
+		dr.findElement(By.xpath("html/body/div[1]/table/tbody/tr/td[2]/table/tbody/tr[4]/td/table/tbody/tr/td[2]/table/tbody/tr[5]/td/form/table/tbody/tr[9]/td[2]/font/font")).click();
+		 
+		Thread.sleep(1000);
+		
+		dr.findElement(By.xpath("html/body/div[1]/table/tbody/tr/td[2]/table/tbody/tr[4]/td/table/tbody/tr/td[2]/table/tbody/tr[5]/td/form/table/tbody/tr[9]/td[2]/font/font/input[1]")).click();
+	}
+	@Test(priority=6)
+	public void ImplicitEx()
+	{
+		dr.manage().timeouts().implicitlyWait(25, TimeUnit.SECONDS);
+		
+		dr.get("http://www.amazon.com");
+	}
+	
+	@Test(priority=7)
+	public void ExplicitEx() throws InterruptedException
+	{
+		Thread.sleep(2000);
+		
+		dr.get("http://www.facebook.com");
+	}
+	
+}

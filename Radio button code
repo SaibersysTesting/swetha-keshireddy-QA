@@ -1,0 +1,46 @@
+package selenium;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class RadioButtonEx {
+
+	public static void main(String[] args) throws InterruptedException 
+	{
+		WebDriver r=new FirefoxDriver();
+		
+		r.get("http://www.newtours.demoaut.com/");
+		
+		Thread.sleep(100);
+		
+		r.findElement(By.name("userName")).sendKeys("mahesh");
+		
+		r.findElement(By.name("password")).sendKeys("mahesh");
+		
+		r.findElement(By.name("login")).click();
+		
+		// radio buttons
+		
+		r.findElement(By.xpath("html/body/div[1]/table/tbody/tr/td[2]/table/tbody/tr[4]/td/table/tbody/tr/td[2]/table/tbody/tr[5]/td/form/table/tbody/tr[2]/td[2]/b/font/input[1]")).click();
+		
+		boolean t=r.findElement(By.xpath("html/body/div[1]/table/tbody/tr/td[2]/table/tbody/tr[4]/td/table/tbody/tr/td[2]/table/tbody/tr[5]/td/form/table/tbody/tr[2]/td[2]/b/font/input[1]")).isSelected();
+		
+		System.out.println("First radio button is checked "+t);
+		
+		r.findElement(By.xpath("html/body/div[1]/table/tbody/tr/td[2]/table/tbody/tr[4]/td/table/tbody/tr/td[2]/table/tbody/tr[5]/td/form/table/tbody/tr[2]/td[2]/b/font/input[2]")).click();
+		
+		boolean f=r.findElement(By.xpath("html/body/div[1]/table/tbody/tr/td[2]/table/tbody/tr[4]/td/table/tbody/tr/td[2]/table/tbody/tr[5]/td/form/table/tbody/tr[2]/td[2]/b/font/input[2]")).isSelected();
+		
+		System.out.println("Second radio button is checked "+f);
+		
+		Thread.sleep(1000);
+		
+		r.findElement(By.xpath("html/body/div[1]/table/tbody/tr/td[2]/table/tbody/tr[4]/td/table/tbody/tr/td[2]/table/tbody/tr[5]/td/form/table/tbody/tr[9]/td[2]/font/font")).click();
+		 
+		Thread.sleep(1000);
+		
+		r.findElement(By.xpath("html/body/div[1]/table/tbody/tr/td[2]/table/tbody/tr[4]/td/table/tbody/tr/td[2]/table/tbody/tr[5]/td/form/table/tbody/tr[9]/td[2]/font/font/input[1]")).click();
+		}
+
+}

@@ -1,0 +1,54 @@
+public class JavaIntArrayExample
+{
+
+  public static void main(String[] args)
+  {
+    new JavaArrayExample();
+  }
+
+  public JavaArrayExample()
+  {
+    intArrayExample();
+    stringArrayExample();
+    intArrayExample2();
+  }
+
+  
+  private void intArrayExample()
+  {
+    int[] intArray = new int[3];
+    intArray[0] = 1;
+    intArray[1] = 2;
+    intArray[2] = 3;
+    System.out.println("intArray output");
+    for (int i=0; i<intArray.length; i++)
+    {
+      System.out.println(intArray[i]);
+    }
+  }
+
+ 
+  private void stringArrayExample()
+  {
+    String[] stringArray = new String[3];
+    stringArray[0] = "a";
+    stringArray[1] = "b";
+    stringArray[2] = "c";
+    System.out.println("stringArray output");
+    for (int i=0; i<stringArray.length; i++)
+    {
+      System.out.println(stringArray[i]);
+    }
+  }
+
+  private void intArrayExample2()
+  {
+    int[] intArray = new int[] {4,5,6,7,8};
+    System.out.println("intArray output (version 2)");
+    for (int i=0; i<intArray.length; i++)
+    {
+      System.out.println(intArray[i]);
+    }
+  }
+
+}

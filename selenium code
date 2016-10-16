@@ -1,0 +1,97 @@
+ */
+public static void main(String[] args) {
+	
+	
+	WebDriver driver = new FirefoxDriver();
+	driver.get("https://www.beyondtherack.com");
+	driver.manage().window().maximize();
+	
+       driver.findElement(By.xpath(".//*[@id='fb-login']")).click();
+       String driverState = driver.getWindowHandle();
+       for (String handle : driver.getWindowHandles()) {
+
+                 driver.switchTo().window(handle);
+               }
+
+       driver.findElement(By.cssSelector("#email")).sendKeys("suchi.singh@happiestminds.com");
+
+       driver.findElement(By.cssSelector("#pass")).sendKeys("happiest");
+
+       driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+	
+	
+	 ProfilesIni allProfiles = new ProfilesIni();
+	 
+	 FirefoxProfile myProfile = allProfiles.getProfile("CertificateIssue"); 
+	 myProfile.setAssumeUntrustedCertificateIssuer(true);
+	 WebDriver Driver = new FirefoxDriver(myProfile); 
+	 Driver.get("http://abodeqa.wordpress.com");
+}
+ 
+ 
+ public ScreenshotMeta takeScreenshot(final WebDriver driver, final String screenshotId)
+		throws IOException {
+
+	validateScreenshotId(screenshotId);
+
+	if (!(driver instanceof TakesScreenshot)) {
+		throw new RuntimeException("Class '" + driver.getClass().getName()
+				+ "' is not a instance of '" + TakesScreenshot.class.getName() + "'!");
+	}
+
+	String url = driver.getCurrentUrl();
+	String title = driver.getTitle();
+	
+	TakesScreenshot screenshotDriver = (TakesScreenshot) driver;
+
+	File tmpPngFile = screenshotDriver.getScreenshotAs(OutputType.FILE);
+
+	String screenshotSignature = testClass.getName() + "#"+testMethodName + ":"+screenshotId;
+	
+	if (tmpPngFile == null) {
+		throw new RuntimeException("Got no screenshot for test '" + screenshotSignature + "'!");
+	} else if (tmpPngFile.length() < 1) {
+		throw new RuntimeException("Screenshot for test '" + screenshotSignature
+				+ "' is 0 byte!");
+	}
+	
+	ScreenshotMeta meta = screenshotStore.addScreenshot(testClass.getName(), testMethodName, screenshotId, url, title, tmpPngFile);
+	
+	return meta;
+}
+ 
+ 
+ 
+ 
+ 
+ 
+ public void within_should_wait_and_reset() {
+
+    WebDriver wd = mock(WebDriver.class);
+    WebElement we = mock(WebElement.class);
+    WebDriver.Options options = mock(WebDriver.Options.class);
+    WebDriver.Timeouts timeouts = mock(WebDriver.Timeouts.class);
+
+    when(wd.manage()).thenReturn(options);
+    when(options.timeouts()).thenReturn(timeouts);
+    when(timeouts.implicitlyWait(10, TimeUnit.SECONDS)).thenReturn(timeouts);
+    when(wd.findElement(By.tagName("div"))).thenReturn(we);
+    when(we.getTagName()).thenReturn("div");
+    when(timeouts.implicitlyWait(0, TimeUnit.SECONDS)).thenReturn(timeouts);
+
+    Monitor monitor = new ExceptionCounter();
+    FluentWebDriver fwd = new FluentWebDriver(wd, monitor);
+
+    fwd.within(secs(10)).div();
+
+    verify(wd, times(2)).manage();
+    verify(options, times(2)).timeouts();
+    verify(timeouts).implicitlyWait(10, TimeUnit.SECONDS);
+    verify(wd).findElement(By.tagName("div"));
+    verify(we).getTagName();
+    verify(timeouts).implicitlyWait(0, TimeUnit.SECONDS);
+
+    assertThat("Monitor's Exception handling should not be invoked for within() processing", count, equalTo(0));
+
+}
